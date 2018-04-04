@@ -1,3 +1,4 @@
 Django
 djangorestframework
 django-cors-headers
+djangorestframework_camel_case
