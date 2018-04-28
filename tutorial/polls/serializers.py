@@ -3,16 +3,6 @@ from rest_framework import serializers
 from .models import Question, Choice
 
 
-class QuestionSerializer(serializers.ModelSerializer):
-    class Meta:
-        model = Question
-        fields = (
-            'id',
-            'question_text',
-            'pub_date',
-        )
-
-
 class ChoiceSerializer(serializers.ModelSerializer):
     class Meta:
         model = Choice
@@ -21,4 +11,17 @@ class ChoiceSerializer(serializers.ModelSerializer):
             'question',
             'choice_text',
             'votes',
+        )
+
+
+class QuestionSerializer(serializers.ModelSerializer):
+    choices = ChoiceSerializer(many=True, source='choice_set')
+
+    class Meta:
+        model = Question
+        fields = (
+            'id',
+            'question_text',
+            'pub_date',
+            'choices',
         )
