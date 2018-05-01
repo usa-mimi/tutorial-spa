@@ -17,10 +17,12 @@ from django.contrib import admin
 from django.urls import path, include
 
 from polls.api_urls import question_router
+from polls import api_views as poll_views
 
 
 api_urlpatterns = [
     path('questions/', include(question_router.urls)),
+    path('choices/<int:choice_id>/vote/', poll_views.VoteView.as_view()),
 ]
 
 urlpatterns = [
