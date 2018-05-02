@@ -17,7 +17,7 @@
                      :value="choice.id">
                    </v-radio>
                  </v-radio-group>
-                 <v-btn color="success">投票</v-btn>
+                 <v-btn @click="doVote" color="success">投票</v-btn>
               </v-card-text>
               <v-card-text>
                 <div>{{ data.pubDate|printDate }}</div>
@@ -51,6 +51,14 @@ export default {
     fetchData () {
       axios.get('http://localhost:8000/api/1.0/questions/').then(res => {
         this.questions = res.data.results
+      })
+    },
+    doVote () {
+      if (!this.vote) {
+        return
+      }
+      axios.post(`http://localhost:8000/api/1.0/choices/${this.vote}/vote/`).then(res => {
+        this.fetchData()
       })
     },
   },
