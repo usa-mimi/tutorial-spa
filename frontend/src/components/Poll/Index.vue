@@ -31,7 +31,6 @@
 </template>
 
 <script>
-import axios from 'axios'
 import moment from 'moment'
 
 export default {
@@ -49,7 +48,7 @@ export default {
   },
   methods: {
     fetchData () {
-      axios.get(`${process.env.API_ENDPOINT}questions/`).then(res => {
+      this.$request.questions.list().then(res => {
         this.questions = res.data.results
       })
     },
@@ -57,7 +56,7 @@ export default {
       if (!this.vote) {
         return
       }
-      axios.post(`${process.env.API_ENDPOINT}choices/${this.vote}/vote/`).then(res => {
+      this.$request.questions.vote(this.vote).then(res => {
         this.fetchData()
       })
     },
