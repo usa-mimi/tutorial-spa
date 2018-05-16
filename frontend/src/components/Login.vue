@@ -25,7 +25,9 @@ export default {
   },
   methods: {
     submit () {
-      alert('login')
+      this.$request.auth.login(this.username, this.password).then(res => {
+        console.log(res.data)
+      })
     },
   },
 }
