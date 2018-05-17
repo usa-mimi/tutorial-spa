@@ -44,7 +44,8 @@ export default {
     submit () {
       this.nonFieldErrors = []
       this.$request.auth.login(this.username, this.password).then(res => {
-        console.log(res.data)
+        this.$request.defaults.headers.common['Authorization'] = `JWT ${res.data.token}`
+        this.$router.push('/')
       }, err => {
         this.nonFieldErrors = err.response.data.nonFieldErrors
       })
