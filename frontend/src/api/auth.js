@@ -7,5 +7,8 @@ export default function (cli) {
       }
       return cli.post('auth/', data)
     },
+    verify (token) {
+      return cli.post('auth/verify/', {token})
+    },
   }
 }
