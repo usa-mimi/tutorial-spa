@@ -2,9 +2,8 @@
   <v-app id="app">
     <v-navigation-drawer app></v-navigation-drawer>
     <v-toolbar app>
-      {{ isLoggedIn ? 'ログイン中' : 'ログアウト中' }}
-      <v-btn @click="login">ログイン</v-btn>
-      <v-btn @click="logout">ログアウト</v-btn>
+      <router-link v-show="!isLoggedIn" :to="{name: 'Login'}">ログイン</router-link>
+      <v-btn v-show="isLoggedIn" @click="logout">ログアウト</v-btn>
     </v-toolbar>
     <v-content>
       <v-container fluid>

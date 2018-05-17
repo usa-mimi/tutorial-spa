@@ -18,6 +18,7 @@ const mutations = {
   },
   loggedOut (state) {
     state.isLoggedIn = false
+    delete client.defaults.headers.common['Authorization']
   },
 }
 
