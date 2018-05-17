@@ -22,8 +22,11 @@ export default {
   computed: {
     ...mapGetters(['isLoggedIn']),
   },
+  created () {
+    this.tryLoggedIn()
+  },
   methods: {
-    ...mapActions(['login', 'logout']),
+    ...mapActions(['login', 'logout', 'tryLoggedIn']),
   },
 }
 </script>
