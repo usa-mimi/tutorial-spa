@@ -14,6 +14,7 @@ Including another URLconf
     2. Add a URL to urlpatterns:  path('blog/', include('blog.urls'))
 """
 from rest_framework_jwt.views import obtain_jwt_token
+from rest_framework_jwt.views import verify_jwt_token
 
 from django.contrib import admin
 from django.urls import path, include
@@ -24,6 +25,7 @@ from polls import api_views as poll_views
 
 api_urlpatterns = [
     path('auth/', obtain_jwt_token),
+    path('auth/verify/', verify_jwt_token),
     path('questions/', include(question_router.urls)),
     path('choices/<int:choice_id>/vote/', poll_views.VoteView.as_view()),
 ]
