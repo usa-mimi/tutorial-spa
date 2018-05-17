@@ -1,6 +1,8 @@
 import Vue from 'vue'
 import Vuex from 'vuex'
 
+import client from '@/api'
+
 Vue.use(Vuex)
 
 const debug = process.env.NODE_ENV !== 'production'
@@ -10,8 +12,9 @@ const state = {
 }
 
 const mutations = {
-  loggedIn (state) {
+  loggedIn (state, token) {
     state.isLoggedIn = true
+    client.defaults.headers.common['Authorization'] = `JWT ${token}`
   },
   loggedOut (state) {
     state.isLoggedIn = false
@@ -19,8 +22,11 @@ const mutations = {
 }
 
 const actions = {
-  login ({commit}) {
-    commit('loggedIn')
+  login ({commit}, [username, password]) {
+    return client.auth.login(username, password).then(res => {
+      commit('loggedIn', res.data.token)
+      return res
+    })
   },
   logout ({commit}) {
     commit('loggedOut')

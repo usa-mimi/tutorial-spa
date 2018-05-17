@@ -23,6 +23,8 @@
 </template>
 
 <script>
+import {mapActions} from 'vuex'
+
 export default {
   name: 'Login',
   data () {
@@ -41,10 +43,10 @@ export default {
     }
   },
   methods: {
+    ...mapActions(['login']),
     submit () {
       this.nonFieldErrors = []
-      this.$request.auth.login(this.username, this.password).then(res => {
-        this.$request.defaults.headers.common['Authorization'] = `JWT ${res.data.token}`
+      this.login([this.username, this.password]).then(res => {
         this.$router.push('/')
       }, err => {
         this.nonFieldErrors = err.response.data.nonFieldErrors
